@@ -1,0 +1,28 @@
+<form #f="ngForm" (ngSubmit)="registrar()">
+    <div>
+    <label>Nombre: </label>
+    <input type="text" name="nombre" [(ngModel)]="registroClienteDTO.nombre" />
+    </div>
+    <div>
+    <label>Foto: </label>
+    <input type="text" name="fotoPerfil" [(ngModel)]="registroClienteDTO.fotoPerfil" />
+    </div>
+    <div>
+    <label>Ciudad: </label>
+    <input type="text" name="ciudadResidencia"
+    [(ngModel)]="registroClienteDTO.ciudadResidencia" />
+    </div>
+    <div>
+    <label>Username: </label>
+    <input type="text" name="nickname" [(ngModel)]="registroClienteDTO.nickname" />
+    </div>
+    <div>
+    <label>Correo electrónico: </label>
+    <input type="email" name="email" [(ngModel)]="registroClienteDTO.email" />
+    </div>
+    <div>
+    <label>Contraseña: </label>
+    <input type="password" name="password" [(ngModel)]="registroClienteDTO.password" />
+    </div>
+    <button type="submit" [disabled]="f.invalid" >Registrarse</button>
+    </form>
