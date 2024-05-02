@@ -1,2 +1,12 @@
-<p>login works!</p>
+<form #f="ngForm" (ngSubmit)="iniciarSesion">
+    <div>
+    <label>Email: </label>
+    <input type="email" name="Email" [(ngModel)]="loginDTO.email" requerid />
+    </div>
+ 
+    <div>
+        <label>Password: </label>
+        <input type="password" name="Password" [(ngModel)]="loginDTO.password" requerid />
+        </div>
+</form>
 

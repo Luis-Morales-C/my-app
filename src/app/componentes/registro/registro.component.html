@@ -1,28 +1,44 @@
 <form #f="ngForm" (ngSubmit)="registrar()">
+
     <div>
     <label>Nombre: </label>
-    <input type="text" name="nombre" [(ngModel)]="registroClienteDTO.nombre" />
+    <input type="text" name="nombre" [(ngModel)]="registroClienteDTO.nombre" requerid />
     </div>
+
     <div>
     <label>Foto: </label>
-    <input type="text" name="fotoPerfil" [(ngModel)]="registroClienteDTO.fotoPerfil" />
+    <input type="file" name="fotoPerfil" (change)="onFileChange($event)" required />
     </div>
+
     <div>
-    <label>Ciudad: </label>
-    <input type="text" name="ciudadResidencia"
-    [(ngModel)]="registroClienteDTO.ciudadResidencia" />
+        <label>Ciudad: </label>
+        <select name="ciudadResidencia" required [(ngModel)]="registroClienteDTO.ciudadResidencia" >
+        <option value="" selected >Seleccione una ciudad</option>
+        @for (item of ciudades; track $index) { <option [value]="item" >{{item}}</option> }
+        </select>
     </div>
+    
     <div>
     <label>Username: </label>
-    <input type="text" name="nickname" [(ngModel)]="registroClienteDTO.nickname" />
+    <input type="text" name="nickname" [(ngModel)]="registroClienteDTO.nickname" required minlength="6" />
     </div>
+
     <div>
     <label>Correo electrónico: </label>
-    <input type="email" name="email" [(ngModel)]="registroClienteDTO.email" />
+    <input type="email" name="email" [(ngModel)]="registroClienteDTO.email" required />
     </div>
+    
     <div>
     <label>Contraseña: </label>
-    <input type="password" name="password" [(ngModel)]="registroClienteDTO.password" />
+    <input type="password" name="password" [(ngModel)]="registroClienteDTO.password"required minlength="5" maxlength="12"/>
     </div>
-    <button type="submit" [disabled]="f.invalid" >Registrarse</button>
+
+    <div>
+    <label >Repetir contraseña: </label>
+    <input type="password" name="confirmaPassword"
+    [(ngModel)]="registroClienteDTO.confirmarPassword" required />
+    </div>
+    @if(!sonIguales()){<p> las contraseñas no coinciden</p>}
+
+    <button type="submit" [disabled]="f.invalid || !sonIguales()" >Registrarse</button>
     </form>
