@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistroClienteDTO } from '../dto/registro-cliente-dto';
+import { RegistroClienteDTO } from '../../dto/registro-cliente-dto';
 import { FormsModule } from '@angular/forms';
-import { RegistroService } from '../registro/registroService';
+import { RegistroService } from '../../servicios/registroService';
 
 @Component({
 selector: 'app-registro',
