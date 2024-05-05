@@ -1,44 +1,71 @@
-<form #f="ngForm" (ngSubmit)="registrar()">
-
-    <div>
-    <label>Nombre: </label>
-    <input type="text" name="nombre" [(ngModel)]="registroClienteDTO.nombre" requerid />
+<div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Registro de un nuevo cliente</h5>
     </div>
+    <div class="card-body py-5">
+        <form #f="ngForm" (ngSubmit)="registrar()">
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Cedula: </label>
+                <div class="col-sm-10">
+                    <input #cedula="ngModel" class="form-control" [ngClass]="cedula.invalid && cedula.dirty
+                    ? 'is-invalid' : ''" type="text" name="nombre" [(ngModel)]="registroClienteDTO.cedula" required />
+                </div>
 
-    <div>
-    <label>Foto: </label>
-    <input type="file" name="fotoPerfil" (change)="onFileChange($event)" required />
+                <label class="col-sm-2 col-form-label">Nombre: </label>
+                <div class="col-sm-10">
+                    <input #nombre="ngModel" class="form-control" [ngClass]="nombre.invalid && nombre.dirty
+                    ? 'is-invalid' : ''" type="text" name="nombre" [(ngModel)]="registroClienteDTO.nombre" required />
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Foto: </label>
+                    <div class="col-sm-10 ">
+                        <input class="form-control" type="file" name="fotoPerfil" (change)="onFileChange($event)"
+                            required />
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label ">Ciudad: </label>
+                    <div class="colo-sm-10">
+                        <select class="form-select" name="ciudadResidencia" required
+                            [(ngModel)]="registroClienteDTO.ciudadResidencia">
+                            <option value="" selected>Seleccione una ciudad</option>
+                            @for (item of ciudades; track $index) { <option [value]="item">{{item}}</option> }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label class="col-sm-2 col-form-label">Username: </label>
+                    <div class="col-sm-10">
+                        <input #nickname="ngModel" class="form-control" [ngClass]="nickname.invalid &&
+                        nickname.dirty ? 'is-invalid' : ''" type="text" name="nickname"
+                            [(ngModel)]="registroClienteDTO.nickname" required />
+                    </div>
+                </div>
+
+                <div>
+                    <label>Correo electrónico: </label>
+                    <input type="email" name="email" [(ngModel)]="registroClienteDTO.email" required />
+                </div>
+
+                <div>
+                    <label>Contraseña: </label>
+                    <input type="password" name="password" [(ngModel)]="registroClienteDTO.password" required
+                        minlength="5" maxlength="12" />
+                </div>
+
+                <div>
+                    <label>Repetir contraseña: </label>
+                    <input type="password" name="confirmaPassword" [(ngModel)]="registroClienteDTO.confirmarPassword"
+                        required />
+                </div>
+                @if(!sonIguales()){<p> las contraseñas no coinciden</p>}
+
+                <button type="submit" class='btn btn-primary'
+                    [disabled]="f.invalid || !sonIguales()">Registrarse</button>
+            </div>
+        </form>
     </div>
-
-    <div>
-        <label>Ciudad: </label>
-        <select name="ciudadResidencia" required [(ngModel)]="registroClienteDTO.ciudadResidencia" >
-        <option value="" selected >Seleccione una ciudad</option>
-        @for (item of ciudades; track $index) { <option [value]="item" >{{item}}</option> }
-        </select>
-    </div>
-    
-    <div>
-    <label>Username: </label>
-    <input type="text" name="nickname" [(ngModel)]="registroClienteDTO.nickname" required minlength="6" />
-    </div>
-
-    <div>
-    <label>Correo electrónico: </label>
-    <input type="email" name="email" [(ngModel)]="registroClienteDTO.email" required />
-    </div>  
-
-    <div>
-    <label>Contraseña: </label>
-    <input type="password" name="password" [(ngModel)]="registroClienteDTO.password"required minlength="5" maxlength="12"/>
-    </div>
-
-    <div>
-    <label >Repetir contraseña: </label>
-    <input type="password" name="confirmaPassword"
-    [(ngModel)]="registroClienteDTO.confirmarPassword" required />
-    </div>
-    @if(!sonIguales()){<p> las contraseñas no coinciden</p>}
-
-    <button type="submit" [disabled]="f.invalid || !sonIguales()" >Registrarse</button>
-    </form>
+</div>
