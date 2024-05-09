@@ -47,7 +47,10 @@
 
                 <div class="mb-3">
                     <label>Correo electrónico: </label>
-                    <input #email="ngModel" class="form-control" type="email" name="email" [(ngModel)]="registroClienteDTO.email" required />
+                    <input #email="ngModel" class="form-control" type="email"  name="email"
+                    [ngClass]="password.invalid &&
+                    password.dirty ? 'is-invalid' : ''"
+                    [(ngModel)]="registroClienteDTO.email" required />
                 </div>
 
                 <div class="mb-3">
