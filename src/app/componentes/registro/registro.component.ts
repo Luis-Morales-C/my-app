@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistroClienteDTO } from '../../dto/registro-cliente-dto';
 import { FormsModule } from '@angular/forms';
-import { RegistroServicio } from '../../servicios/registroService;
+import { RegistroServicio } from '../../servicios/registroServicio';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,14 +16,14 @@ export class RegistroComponent implements OnInit {
   archivos!: FileList;
   registroClienteDTO: RegistroClienteDTO;
   listaRegistros: RegistroClienteDTO[];
-  registroService: RegistroServices;
+  registroService: RegistroServicio;
 
   constructor() {
     this.registroClienteDTO = new RegistroClienteDTO();
     this.listaRegistros = new Array;
     this.ciudades = [];
     this.cargarCiudades();
-    this.registroService = new RegistroServices;
+    this.registroService = new RegistroServicio;
   }
 
 

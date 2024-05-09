@@ -4,7 +4,7 @@ import { RegistroClienteDTO } from '../dto/registro-cliente-dto';
 @Injectable({
   providedIn: 'root'
 })
-export class RegistroService {
+export class RegistroServicio{
   private listaRegistros: RegistroClienteDTO[] = [];
 
   constructor() { }
