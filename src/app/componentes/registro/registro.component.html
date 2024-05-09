@@ -8,7 +8,7 @@
                 <label class="col-sm-2 col-form-label">Cedula: </label>
                 <div class="col-sm-10">
                     <input #cedula="ngModel" class="form-control" [ngClass]="cedula.invalid && cedula.dirty
-                    ? 'is-invalid' : ''" type="text" name="nombre" [(ngModel)]="registroClienteDTO.cedula" required />
+                    ? 'is-invalid' : ''" type="text" name="cedula" [(ngModel)]="registroClienteDTO.cedula" required />
                 </div>
 
                 <label class="col-sm-2 col-form-label">Nombre: </label>
@@ -19,19 +19,19 @@
 
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Foto: </label>
-                    <div class="col-sm-10 ">
+                    <div class="col-sm-10">
                         <input class="form-control" type="file" name="fotoPerfil" (change)="onFileChange($event)"
                             required />
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label ">Ciudad: </label>
-                    <div class="colo-sm-10">
+                    <label class="col-sm-2 col-form-label">Ciudad: </label>
+                    <div class="col-sm-10">
                         <select class="form-select" name="ciudadResidencia" required
                             [(ngModel)]="registroClienteDTO.ciudadResidencia">
                             <option value="" selected>Seleccione una ciudad</option>
-                            @for (item of ciudades; track $index) { <option [value]="item">{{item}}</option> }
+                            <option *ngFor="let item of ciudades; let i = index" [value]="item">{{ item }}</option>
                         </select>
                     </div>
                 </div>
@@ -45,26 +45,26 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <label>Correo electrónico: </label>
-                    <input type="email" name="email" [(ngModel)]="registroClienteDTO.email" required />
+                    <input #email="ngModel" class="form-control" type="email" name="email" [(ngModel)]="registroClienteDTO.email" required />
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <label>Contraseña: </label>
-                    <input type="password" name="password" [(ngModel)]="registroClienteDTO.password" required
+                    <input #password="ngModel" class="form-control" type="password" [ngClass]="password.invalid &&
+                    password.dirty ? 'is-invalid' : ''" name="password" [(ngModel)]="registroClienteDTO.password" required
                         minlength="5" maxlength="12" />
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <label>Repetir contraseña: </label>
-                    <input type="password" name="confirmaPassword" [(ngModel)]="registroClienteDTO.confirmarPassword"
+                    <input #confirmaPassword="ngModel" class="form-control" type="password" name="confirmaPassword" [(ngModel)]="registroClienteDTO.confirmarPassword"
                         required />
+                    <p *ngIf="!sonIguales()" class="alert alert-danger">Las contraseñas no coinciden</p>
                 </div>
-                @if(!sonIguales()){<p> las contraseñas no coinciden</p>}
 
-                <button type="submit" class='btn btn-primary'
-                    [disabled]="f.invalid || !sonIguales()">Registrarse</button>
+                <button type="submit" class="btn btn-primary" [disabled]="f.invalid || !sonIguales()">Registrarse</button>
             </div>
         </form>
     </div>
