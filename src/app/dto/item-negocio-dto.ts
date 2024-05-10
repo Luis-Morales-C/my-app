@@ -1,4 +1,5 @@
 import { Ubicacion } from './ubicacion';
+
 export class ItemNegocioDTO{
     constructor(
         public codigoNegocio: string = '',

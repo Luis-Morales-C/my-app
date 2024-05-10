@@ -10,16 +10,18 @@ import { Router } from '@angular/router';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(private mapaService: MapaService, private router: Router) {
 
+iraBusqueda(valor:string){
+ if(valor){
+ this.router.navigate(["/busqueda", valor]);
+ }
+}
 
+  constructor(private mapaService: MapaService, private router:Router) {
    }
-   public iraBusqueda(valor:string){
-    if(valor){
-    this.router.navigate(["/busqueda", valor]);
-    }
-    }
   ngOnInit(): void {
     this.mapaService.crearMapa();
+
+
   }
 }

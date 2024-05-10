@@ -39,9 +39,8 @@ negocioNuevo.imagenes[0], negocioNuevo.tipoNegocio, negocioNuevo.ubicacion, 0, '
 public eliminar(codigo: string) {
   this.negocios = this.negocios.filter(n => n.codigoNegocio !== codigo);
 }
-public buscar(textoBusqueda: string): ItemNegocioDTO[] {
-  return this.negocios.filter(negocio =>
-    negocio.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
-  );
+public buscar(busqueda: string) {
+  return this.negocios.filter(negocios =>
+    negocios.nombre.includes(busqueda.toLowerCase()))
 }
 }
