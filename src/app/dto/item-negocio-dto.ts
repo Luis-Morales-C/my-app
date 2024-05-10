@@ -1,4 +1,4 @@
-import { Ubicacion } from '../dto/ubicacion';
+import { Ubicacion } from './ubicacion';
 export class ItemNegocioDTO{
     constructor(
         public codigoNegocio: string = '',
