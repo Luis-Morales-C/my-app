@@ -4,6 +4,8 @@ import { NegociosService } from '../../servicios/negocios.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Horario } from '../../dto/horario';
+import { MapaService } from '../../servicios/mapa.service';
+
 @Component({
 selector: 'app-crear-negocio',
 standalone: true,
@@ -15,10 +17,14 @@ export class CrearNegocioComponent implements OnInit{
   archivos!: FileList;
   registroNegocioDTO: RegistroNegocioDTO;
   horarios: Horario[];
-  constructor(private negociosService: NegociosService) {
-  this.registroNegocioDTO = new RegistroNegocioDTO();
-  this.horarios = [ new Horario() ];
+
+
+  constructor(private negociosService: NegociosService, private mapaService: MapaService) {
+    this.registroNegocioDTO = new RegistroNegocioDTO();
+    this.horarios = [ new Horario() ];
+    
   }
+
   public crearNegocio() {
   this.registroNegocioDTO.horarios = this.horarios;
   this.negociosService.crear(this.registroNegocioDTO);
@@ -41,7 +47,12 @@ export class CrearNegocioComponent implements OnInit{
       }
     }
   }
-  
+
   ngOnInit(): void {
-  }
+    this.mapaService.crearMapa();
+    this.mapaService.agregarMarcador().subscribe((marcador) => {
+    this.registroNegocioDTO.ubicacion.latitud = marcador.lat;
+    this.registroNegocioDTO.ubicacion.longitud = marcador.lng;
+    });
+    }
   }

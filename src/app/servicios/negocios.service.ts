@@ -6,6 +6,7 @@ import { Ubicacion } from '../dto/ubicacion';
 providedIn: 'root'
 })
 export class NegociosService {
+
 negocios: ItemNegocioDTO[];
 constructor() {
 this.negocios = [];
@@ -20,18 +21,27 @@ this.negocios.push( new ItemNegocioDTO('4', 'Veterinaria Los Amigos',
 'https://picsum.photos/100', 'VETERINARIA', new Ubicacion(4.539872786267409,
 -75.65011488244343), 4.0, 'APROBADO') );
 }
+
+
 public listar(): ItemNegocioDTO[] {
 return this.negocios;
 }
 public obtener(codigo: string): ItemNegocioDTO | undefined {
 return this.negocios.find(negocios => negocios.codigoNegocio == codigo);
 }
+
 public crear(negocioNuevo: RegistroNegocioDTO) {
 const codigo = (this.negocios.length + 1).toString();
 this.negocios.push( new ItemNegocioDTO(codigo, negocioNuevo.nombre,
 negocioNuevo.imagenes[0], negocioNuevo.tipoNegocio, negocioNuevo.ubicacion, 0, 'PENDIENTE') );
+
 }
 public eliminar(codigo: string) {
   this.negocios = this.negocios.filter(n => n.codigoNegocio !== codigo);
+}
+public buscar(textoBusqueda: string): ItemNegocioDTO[] {
+  return this.negocios.filter(negocio =>
+    negocio.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+  );
 }
 }
