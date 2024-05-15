@@ -1,36 +1,42 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { LoginDTO } from '../../dto/login-dto';
-import { RegistroComponent } from '../registro/registro.component';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../servicios/auth.service';
+import { MensajeDTO } from '../../dto/mensaje-dto';
+import { TokenService } from '../../servicios/token.service';
+
+import { Alerta } from '../../dto/alerta';
+import { AlertaComponent } from '../alerta/alerta.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css'],
+  imports: [FormsModule, RouterLink, CommonModule]
 })
 export class LoginComponent {
+
   loginDTO: LoginDTO;
-  registroComponent: RegistroComponent;
+  alerta!: Alerta;  // Usar el operador de aserción no nulo
 
-  constructor() {
-    this.loginDTO=new LoginDTO;
-    this.registroComponent=new RegistroComponent;
+  constructor(
+    private authService: AuthService,
+    private tokenService: TokenService
+  ) {
+    this.loginDTO = new LoginDTO();
   }
-  public iniciarSesion() {
-    const email = this.loginDTO.email;
-    const password = this.loginDTO.password;
 
-    const listaRegistros = this.registroComponent.listaRegistros;
-
-    const usuarioEncontrado = listaRegistros.find(registro => registro.email === email && registro.password === password);
-    
-    if (usuarioEncontrado) {
-      console.log('Inicio de sesión exitoso');
-    } else {
-      console.log('Credenciales incorrectas');
-    }
+  public login() {
+    this.authService.loginCliente(this.loginDTO).subscribe({
+      next: data => {
+        this.tokenService.login(data.respuesta);
+      },
+      error: error => {
+        this.alerta = new Alerta(error.error.respuesta, "danger");
+      }
+    });
   }
 }
-
