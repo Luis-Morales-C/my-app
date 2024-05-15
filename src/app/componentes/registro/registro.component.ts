@@ -3,6 +3,7 @@ import { RegistroClienteDTO } from '../../dto/registro-cliente-dto';
 import { FormsModule } from '@angular/forms';
 import { RegistroServicio } from '../../servicios/registroServicio';
 import { CommonModule } from '@angular/common';
+import { PublicoService } from '../../servicios/publico.service';
 
 @Component({
   selector: 'app-registro',
@@ -18,7 +19,7 @@ export class RegistroComponent implements OnInit {
   listaRegistros: RegistroClienteDTO[];
   registroService: RegistroServicio;
 
-  constructor() {
+  constructor(private publicoService: PublicoService) {
     this.registroClienteDTO = new RegistroClienteDTO();
     this.listaRegistros = new Array;
     this.ciudades = [];
@@ -41,9 +42,16 @@ export class RegistroComponent implements OnInit {
   }
 
   private cargarCiudades() {
-    this.ciudades = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena"];
-  }
-
+    this.publicoService.listarCiudades().subscribe({
+    next: (data) => {
+    this.ciudades = data.respuesta;
+    },
+    error: (error) => {
+    console.log("Error al cargar las ciudades");
+    }
+    });
+    }
+    
   public onFileChange(event: any) {
     if (event.target.files.length > 0) {
       this.archivos = event.target.files;
