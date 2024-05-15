@@ -17,6 +17,7 @@ export class CrearNegocioComponent implements OnInit{
   archivos!: FileList;
   registroNegocioDTO: RegistroNegocioDTO;
   horarios: Horario[];
+  numero: string=''
 
 
   constructor(private negociosService: NegociosService, private mapaService: MapaService) {
@@ -46,6 +47,15 @@ export class CrearNegocioComponent implements OnInit{
         this.registroNegocioDTO.imagenes.push(file.name);
       }
     }
+  }
+  
+
+  public agregarTelefono() {
+    this.registroNegocioDTO.telefonos.push(this.numero);
+  }
+
+  public eliminarTelefono(index: number) {
+    this.registroNegocioDTO.telefonos.splice(index, 1);
   }
 
   ngOnInit(): void {

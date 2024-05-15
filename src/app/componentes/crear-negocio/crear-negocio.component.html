@@ -65,9 +65,23 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Teléfonos: </label>
                 <div class="col-sm-10">
-                    <!-- Completar (se puede basar en lo hecho con los horarios) -->
+                    <div *ngFor="let telefono of registroNegocioDTO.telefonos; let i = index" class="row mb-2">
+                        <div class="col">
+                            <input class="form-control" placeholder="Teléfono" type="text" name="telefono-{{i}}"
+                                   [(ngModel)]="registroNegocioDTO.telefonos[i]" />
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-danger" (click)="eliminarTelefono(i)">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" (click)="agregarTelefono()">
+                        <i class="fa-solid fa-circle-plus me-1"></i>Agregar Teléfono
+                    </button>
                 </div>
             </div>
+            
             <button class="btn btn-primary" (click)="crearNegocio()">
                 <i class="fa-solid fa-circle-plus me-1"></i>Crear negocio
             </button>

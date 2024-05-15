@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RegistroServicio } from '../../servicios/registro.service';
 import { CommonModule } from '@angular/common';
 import { PublicoService } from '../../servicios/publico.service'; 
-import { Alerta } from '../../dto/alerta';
 
 
 @Component({
@@ -15,7 +14,6 @@ import { Alerta } from '../../dto/alerta';
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent implements OnInit {
-  alerta!:Alerta;
   ciudades: string[];
   archivos!: FileList;
   registroClienteDTO: RegistroClienteDTO;
@@ -30,20 +28,16 @@ export class RegistroComponent implements OnInit {
     this.registroService = new RegistroServicio;
   }
 
+
   public registrar() {
     if (this.registroClienteDTO.fotoPerfil != "") {
-    this.authService.registrarCliente(this.registroClienteDTO).subscribe({
-    next: (data) => {
-    this.alerta = new Alerta(data.respuesta, "success");
-    },
-    error: (error) => {
-    this.alerta = new Alerta(error.error.respuesta, "danger");
-    }
-    });
+      console.log(this.registroClienteDTO);
+      this.registroService.agregarRegistro(this.registroClienteDTO);
     } else {
-    this.alerta = new Alerta("Debe subir una imagen", "danger");
+      console.log("Debe cargar una foto");
     }
-    }
+  }
+
 
   public sonIguales(): boolean {
     return this.registroClienteDTO.password == this.registroClienteDTO.confirmarPassword;

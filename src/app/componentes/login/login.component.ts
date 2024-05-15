@@ -18,9 +18,9 @@ import { AlertaComponent } from '../alerta/alerta.component';
   imports: [FormsModule, RouterLink, CommonModule]
 })
 export class LoginComponent {
-
+  
   loginDTO: LoginDTO;
-  alerta!: Alerta;  // Usar el operador de aserción no nulo
+  alerta!: Alerta;  
 
   constructor(
     private authService: AuthService,
