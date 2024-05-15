@@ -11,6 +11,15 @@ providedIn: 'root'
 export class TokenService {
 constructor(private router: Router) { }
 
+public getCodigo(): string {
+  const token = this.getToken();
+  if (token) {
+  const values = this.decodePayload(token);
+  return values.id;
+  }
+  return "";
+  }
+
 
 public setToken(token: string) {
   window.sessionStorage.removeItem(TOKEN_KEY);

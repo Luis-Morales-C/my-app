@@ -8,9 +8,11 @@ providedIn: 'root'
 export class PublicoService {
 private publicoURL = "http://localhost:8080/api/publico";
 constructor(private http: HttpClient) { }
+
 public listarCiudades(): Observable<MensajeDTO> {
 return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-ciudades`);
 }
+
 public listarTiposNegocio(): Observable<MensajeDTO> {
 return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-tipos-negocio`);
 }

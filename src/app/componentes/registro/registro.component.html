@@ -3,7 +3,8 @@
         <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Registro de un nuevo cliente</h5>
     </div>
     <div class="card-body py-5">
-        <form #f="ngForm" (ngSubmit)="registrar()">
+       
+        <form #f="ngForm" (click)="registrar()">
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Cedula: </label>
                 <div class="col-sm-10">
@@ -19,14 +20,19 @@
 
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label">Foto: </label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="file" name="fotoPerfil" (change)="onFileChange($event)"
-                            required />
+                    <div class="col-sm-8">
+                    <input type="file" class="form-control" name="foto" (change)="onFileChange($event)" />
                     </div>
-                </div>
+                    <div class="col-sm-2" >
+                    <button type="submit" [disabled]="archivos == null" class="btn btn-primary"
+                    (click)="subirImagen()" >
+                    <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir Foto
+                    </button>
+                    </div>
+                    </div>
 
                 <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Ciudad: </label>
+                    <label class="col-sm-2 col-form-label">CiudadResidencia: </label>
                     <div class="col-sm-10">
                         <select class="form-select" name="ciudadResidencia" required
                             [(ngModel)]="registroClienteDTO.ciudadResidencia">
@@ -66,10 +72,11 @@
                         required />
                     <p *ngIf="!sonIguales()" class="alert alert-danger">Las contraseñas no coinciden</p>
                 </div>
+                
 
                 <button type="submit" class="btn btn-primary" [disabled]="f.invalid || !sonIguales()">Registrarse</button>
+                <app-alerta [alerta]="alerta"></app-alerta>
             </div>
-            
         </form>
     </div>
 </div>

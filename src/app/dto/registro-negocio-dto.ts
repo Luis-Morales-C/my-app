@@ -10,5 +10,6 @@ public imagenes: string[] = [],
 public tipoNegocio: string = '',
 public horarios: Horario[] = [],
 public telefonos: string[] = []
+
 ) { }
 }
