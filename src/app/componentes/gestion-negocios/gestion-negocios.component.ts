@@ -27,7 +27,6 @@ this.listarSeleccionados();
 this.textoBtnEliminar = '';
 
 }
-
 public listarNegocios(){
     const codigoCliente = this.tokenService.getCodigo();
     this.negocioService.listarNegociosPropietario(codigoCliente).subscribe({

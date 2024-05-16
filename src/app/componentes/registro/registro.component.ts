@@ -34,21 +34,20 @@ export class RegistroComponent implements OnInit {
     this.registroService = new RegistroServicio;
   }
 
-
   public registrar() {
-    if (this.registroClienteDTO.fotoPerfil != "") {
-    this.authService.registrarCliente(this.registroClienteDTO).subscribe({
-    next: (data) => {
-    this.alerta = new Alerta(data.respuesta, "success");
-    },
-    error: (error) => {
-    this.alerta = new Alerta(error.error.respuesta, "danger");
-    }
-    });
-    } else {
-    this.alerta = new Alerta("Debe subir una imagen", "danger");
-    }
-    }
+  if (this.registroClienteDTO.fotoPerfil != "") {
+  this.authService.registrarCliente(this.registroClienteDTO).subscribe({
+  next: (data) => {
+  this.alerta = new Alerta(data.respuesta, "success");
+  },
+  error: (error) => {
+  this.alerta = new Alerta(error.error.respuesta, "danger");
+  }
+  });
+ } else {
+  this.alerta = new Alerta("Debe subir una imagen", "danger");
+ }
+}
 
 
   public sonIguales(): boolean {
@@ -82,7 +81,6 @@ public subirImagen() {
   this.alerta = new Alerta("Debe seleccionar una imagen y subirla", "danger");
   }
   }
-  
     
   public onFileChange(event: any) {
     if (event.target.files.length > 0) {

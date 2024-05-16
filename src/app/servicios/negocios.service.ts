@@ -13,7 +13,7 @@ providedIn: 'root'
 
 export class NegociosService {
 
-  private negociosURL = "http://localhost:8080/api/negocios";
+  private negociosURL = "http://localhost:8080/api/negocio";
 
 
 negocios: ItemNegocioDTO[];
@@ -34,7 +34,7 @@ this.negocios.push( new ItemNegocioDTO('4', 'Veterinaria Los Amigos',
 
 public crear(negocioNuevo: RegistroNegocioDTO): Observable<MensajeDTO> {
   return this.http.post<MensajeDTO>(`${this.negociosURL}/crear`, negocioNuevo);
-  }
+}
   public actualizar(actualizacionNegocio: ActualizacionNegocioDTO): Observable<MensajeDTO> {
     return this.http.put<MensajeDTO>(`${this.negociosURL}/actualizar`, actualizacionNegocio);
     }
@@ -45,6 +45,6 @@ public crear(negocioNuevo: RegistroNegocioDTO): Observable<MensajeDTO> {
     return this.http.delete<MensajeDTO>(`${this.negociosURL}/eliminar/${codigoNegocio}`);
     }
     public listarNegociosPropietario(codigoCliente: string): Observable<MensajeDTO> {
-    return this.http.get<MensajeDTO>(`${this.negociosURL}/listar-negocios/${codigoCliente}`);
+    return this.http.get<MensajeDTO>(`${this.negociosURL}/listar-negocios-propietario/${codigoCliente}`);
     }
     }

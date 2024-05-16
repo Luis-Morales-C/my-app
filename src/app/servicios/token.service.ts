@@ -20,7 +20,6 @@ public getCodigo(): string {
   return "";
   }
 
-
 public setToken(token: string) {
   window.sessionStorage.removeItem(TOKEN_KEY);
   window.sessionStorage.setItem(TOKEN_KEY, token);

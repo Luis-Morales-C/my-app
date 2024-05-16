@@ -2,6 +2,7 @@ import { Horario } from "./horario";
 import { Ubicacion } from "./ubicacion";
 export class RegistroNegocioDTO {
 constructor(
+public codigo: string='',
 public nombre: string = '',
 public descripcion: string = '',
 public codigoCliente: string = '',
@@ -10,6 +11,5 @@ public imagenes: string[] = [],
 public tipoNegocio: string = '',
 public horarios: Horario[] = [],
 public telefonos: string[] = []
-
 ) { }
 }

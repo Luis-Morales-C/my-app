@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Horario } from '../../dto/horario';
 import { MapaService } from '../../servicios/mapa.service';
 import { PublicoService } from '../../servicios/publico.service';
+import { TokenService } from '../../servicios/token.service';
 
 @Component({
 selector: 'app-crear-negocio',
@@ -22,31 +23,40 @@ export class CrearNegocioComponent implements OnInit{
   tipoNegocio: string[];
 
 
-  constructor(private publicoService: PublicoService, private negociosService: NegociosService, private mapaService: MapaService) {
+  constructor(private publicoService: PublicoService, private negociosService: NegociosService, private mapaService: MapaService,private tokenService: TokenService) {
     this.registroNegocioDTO = new RegistroNegocioDTO();
     this.horarios = [ new Horario() ];
     this.tipoNegocio = [];
-    
+    this.cargarTipoNegocio();
+    this.crearNegocio();
   }
 
   public crearNegocio() {
-  this.registroNegocioDTO.horarios = this.horarios;
-  this.negociosService.crear(this.registroNegocioDTO);
-  console.log(this.registroNegocioDTO);
+    this.negociosService.crear(this.registroNegocioDTO).subscribe({
+      next: (data) => {
+        this.registroNegocioDTO.codigoCliente=this.token
+        console.log('Negocio creado correctamente', data);
+
+      },
+      error: (error) => {
+        console.error('Error al crear el negocio', error);
+        
+      }
+    });
   }
+
   public agregarHorario() {
   this.horarios.push(new Horario());
   }
   public onFileChange(event: any) {
     if (event.target.files.length > 0) {
-      // Reiniciar la lista de imágenes
+   
       this.registroNegocioDTO.imagenes = [];
   
-      // Iterar sobre cada archivo seleccionado
       for (let i = 0; i < event.target.files.length; i++) {
         const file = event.target.files[i];
   
-        // Agregar el nombre del archivo a la lista de imágenes
+
         this.registroNegocioDTO.imagenes.push(file.name);
       }
     }

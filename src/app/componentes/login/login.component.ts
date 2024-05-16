@@ -28,15 +28,13 @@ export class LoginComponent {
   ) {
     this.loginDTO = new LoginDTO();
   }
-
   public login() {
     this.authService.loginCliente(this.loginDTO).subscribe({
-      next: data => {
-        this.tokenService.login(data.respuesta.token);
-      },
-      error: error => {
-        this.alerta = new Alerta(error.error.respuesta, "danger");
-      }
-    });
-  }
+    next: data => {
+      this.tokenService.login(data.respuesta.token);
+},
+error: error => {
+this.alerta = new Alerta(error.error.respuesta, "danger" );
+}
+});
 }
