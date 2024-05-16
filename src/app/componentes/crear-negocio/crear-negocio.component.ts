@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistroNegocioDTO } from '../../dto/registro-negocio-dto';
+import { crearNegocioDTO} from '../../dto/crear-negocio-dto';
 import { NegociosService } from '../../servicios/negocios.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,14 +17,14 @@ styleUrl: './crear-negocio.component.css'
 })
 export class CrearNegocioComponent implements OnInit{
   archivos!: FileList;
-  registroNegocioDTO: RegistroNegocioDTO;
+  registroNegocioDTO: crearNegocioDTO;
   horarios: Horario[];
   numero: string=''
   tipoNegocio: string[];
 
 
   constructor(private publicoService: PublicoService, private negociosService: NegociosService, private mapaService: MapaService,private tokenService: TokenService) {
-    this.registroNegocioDTO = new RegistroNegocioDTO();
+    this.registroNegocioDTO = new crearNegocioDTO;
     this.horarios = [ new Horario() ];
     this.tipoNegocio = [];
     this.cargarTipoNegocio();
@@ -34,7 +34,7 @@ export class CrearNegocioComponent implements OnInit{
   public crearNegocio() {
     this.negociosService.crear(this.registroNegocioDTO).subscribe({
       next: (data) => {
-        this.registroNegocioDTO.codigoCliente=this.token
+        this.registroNegocioDTO.codigoCliente=this.tokenService.getCodigo();
         console.log('Negocio creado correctamente', data);
 
       },

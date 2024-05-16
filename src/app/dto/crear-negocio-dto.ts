@@ -1,6 +1,6 @@
 import { Horario } from "./horario";
 import { Ubicacion } from "./ubicacion";
-export class RegistroNegocioDTO {
+export class crearNegocioDTO {
 constructor(
 public codigo: string='',
 public nombre: string = '',
