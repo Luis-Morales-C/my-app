@@ -2,7 +2,7 @@ import { Ubicacion } from './ubicacion';
 
 export class ItemNegocioDTO{
     constructor(
-        public codigoNegocio: string = '',
+        public id: string = '',
         public nombre: string = '',
         public imagenDestacada: string = '',
         public tipoNegocio: string = '',

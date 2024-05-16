@@ -67,8 +67,8 @@ private actualizarMensaje() {
 
 public borrarNegocios() {
     this.seleccionados.forEach(n => {
-    this.negocioService.eliminar(n.codigoNegocio);
-    this.negocios = this.negocios.filter(negocio => negocio.codigoNegocio !== n.codigoNegocio);
+    this.negocioService.eliminar(n.id);
+    this.negocios = this.negocios.filter(negocio => negocio.id !== n.id);
     });
     this.seleccionados = [];
     this.actualizarMensaje();
