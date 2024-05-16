@@ -32,15 +32,20 @@ export class CrearNegocioComponent implements OnInit{
   }
 
   public crearNegocio() {
+    const codigoCliente = this.tokenService.getCodigo();
+    if (!codigoCliente) {
+      console.error('No se ha iniciado sesión');
+      return; 
+    }
+
+    this.registroNegocioDTO.codigoCliente = codigoCliente;
+
     this.negociosService.crear(this.registroNegocioDTO).subscribe({
       next: (data) => {
-        this.registroNegocioDTO.codigoCliente=this.tokenService.getCodigo();
         console.log('Negocio creado correctamente', data);
-
       },
       error: (error) => {
         console.error('Error al crear el negocio', error);
-        
       }
     });
   }
