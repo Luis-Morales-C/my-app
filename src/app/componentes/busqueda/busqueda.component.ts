@@ -21,7 +21,6 @@ this.resultados = [];
 this.textoBusqueda = '';
 this.route.params.subscribe(params => {
 this.textoBusqueda = params['texto'];
-this.resultados = this.negociosService.buscar(this.textoBusqueda);
 this.ngOnInit;
 
 });

@@ -4,6 +4,8 @@ import { RegistroNegocioDTO } from '../dto/registro-negocio-dto';
 import { Ubicacion } from '../dto/ubicacion';
 import { HttpClient } from '@angular/common/http';
 import { MensajeDTO } from '../dto/mensaje-dto';
+import { Observable } from 'rxjs';
+import { ActualizacionNegocioDTO } from '../dto/actualizacion-negocio-dto';
 
 @Injectable({
 providedIn: 'root'
@@ -28,8 +30,6 @@ this.negocios.push( new ItemNegocioDTO('4', 'Veterinaria Los Amigos',
 'https://picsum.photos/100', 'VETERINARIA', new Ubicacion(4.539872786267409,
 -75.65011488244343), 4.0, 'APROBADO') );
 }
-
-
 
 
 public crear(negocioNuevo: RegistroNegocioDTO): Observable<MensajeDTO> {
