@@ -44,14 +44,18 @@ public isLogged(): boolean {
   }
   return false;
   }
-public login(token: string) {
-  this.setToken(token);
-  this.router.navigate(["/"]);
-  }
-public logout() {
-  window.sessionStorage.clear();
-  this.router.navigate(["/login"]);
-  }
+  public login(token: string) {
+    this.setToken(token);
+    this.router.navigate(["/"]).then(() => {
+    window.location.reload();
+    });
+    }
+  public logout() {
+    window.sessionStorage.clear();
+    this.router.navigate(["/login"]).then(() => {
+    window.location.reload();
+    });
+    }
 private decodePayload(token: string): any {
   const payload = token!.split(".")[1];
   const payloadDecoded = Buffer.from(payload, 'base64').toString('ascii');

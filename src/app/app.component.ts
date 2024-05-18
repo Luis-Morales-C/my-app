@@ -12,6 +12,7 @@ export class AppComponent {
 title = 'Unilocal';
 isLogged = false;
 email: string = "";
+footer: any;
 constructor(private tokenService: TokenService) { }
 ngOnInit(): void {
 this.isLogged = this.tokenService.isLogged();

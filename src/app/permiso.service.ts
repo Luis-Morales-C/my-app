@@ -15,7 +15,7 @@ canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
   return true;
   }
   }
-  export const LoginGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state:
-    RouterStateSnapshot): boolean => {
-    return inject(PermisoService).canActivate(next, state);
-    }
+ export const LoginGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state:
+RouterStateSnapshot): boolean => {
+return inject(PermisoService).canActivate(next, state);
+}
