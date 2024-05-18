@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Buffer } from "buffer";
 
 
+
 const TOKEN_KEY = "AuthToken";
 
 @Injectable({
@@ -19,6 +20,14 @@ public getCodigo(): string {
   }
   return "";
   }
+  public getEmail(): string {
+    const token = this.getToken();
+    if (token) {
+    const values = this.decodePayload(token);
+    return values.sub;
+    }
+    return "";
+    }
 
 public setToken(token: string) {
   window.sessionStorage.removeItem(TOKEN_KEY);
