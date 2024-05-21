@@ -6,7 +6,8 @@ import { GestionNegociosComponent } from './componentes/gestion-negocios/gestion
 import { CrearNegocioComponent } from './componentes/crear-negocio/crear-negocio.component';
 import { DetalleNegocioComponent } from './componentes/detalle-negocio/detalle-negocio.component';
 import { BusquedaComponent } from './componentes/busqueda/busqueda.component';
-import { LoginGuard } from './permiso.service';
+import { LoginGuard } from './servicios/permiso.service';
+
 
 
 
