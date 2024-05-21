@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { Buffer } from "buffer";
-
-
 
 const TOKEN_KEY = "AuthToken";
 
@@ -10,7 +9,11 @@ const TOKEN_KEY = "AuthToken";
   providedIn: 'root'
 })
 export class TokenService {
-  constructor(private router: Router) { }
+  private isBrowser: boolean;
+
+  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   public getCodigo(): string {
     const token = this.getToken();
@@ -20,6 +23,7 @@ export class TokenService {
     }
     return "";
   }
+
   public getEmail(): string {
     const token = this.getToken();
     if (token) {
@@ -30,13 +34,15 @@ export class TokenService {
   }
 
   public setToken(token: string) {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+    if (this.isBrowser) {
+      window.sessionStorage.removeItem(TOKEN_KEY);
+      window.sessionStorage.setItem(TOKEN_KEY, token);
+    }
   }
 
   public getToken(): string | null {
-    if (typeof sessionStorage !== 'undefined') {
-      return sessionStorage.getItem('token');
+    if (this.isBrowser) {
+      return sessionStorage.getItem(TOKEN_KEY);
     } else {
       console.warn('sessionStorage is not available');
       return null;
@@ -44,28 +50,39 @@ export class TokenService {
   }
 
   public isLogged(): boolean {
-    if (this.getToken()) {
-      return true;
-    }
-    return false;
+    return this.isBrowser && this.getToken() !== null;
   }
+
   public login(token: string) {
     this.setToken(token);
-    this.router.navigate(["/"]).then(() => {
-      window.location.reload();
-    });
+    if (this.isBrowser) {
+      this.router.navigate(["/"]).then(() => {
+        window.location.reload();
+      });
+    }
   }
+
   public logout() {
-    window.sessionStorage.clear();
-    this.router.navigate(["/login"]).then(() => {
-      window.location.reload();
-    });
+    if (this.isBrowser) {
+      window.sessionStorage.clear();
+      this.router.navigate(["/login"]).then(() => {
+        window.location.reload();
+      });
+    }
   }
+  public getRole(): string {
+    const token = this.getToken();
+    if (token) {
+    const values = this.decodePayload(token);
+    return values.rol;
+    }
+    return "";
+    }
+
   private decodePayload(token: string): any {
-    const payload = token!.split(".")[1];
+    const payload = token.split(".")[1];
     const payloadDecoded = Buffer.from(payload, 'base64').toString('ascii');
-    const values = JSON.parse(payloadDecoded);
-    return values;
+    return JSON.parse(payloadDecoded);
   }
 }
 

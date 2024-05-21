@@ -7,11 +7,13 @@ import { Horario } from '../../dto/horario';
 import { MapaService } from '../../servicios/mapa.service';
 import { PublicoService } from '../../servicios/publico.service';
 import { TokenService } from '../../servicios/token.service';
+import { AlertaComponent } from '../alerta/alerta.component';
+import { Alerta } from '../../dto/alerta';
 
 @Component({
 selector: 'app-crear-negocio',
 standalone: true,
-imports: [FormsModule, CommonModule],
+imports: [FormsModule, CommonModule,AlertaComponent],
 templateUrl: './crear-negocio.component.html',
 styleUrl: './crear-negocio.component.css'
 })
@@ -21,6 +23,7 @@ export class CrearNegocioComponent implements OnInit{
   horarios: Horario[];
   numero: string=''
   tipoNegocio: string[];
+  alerta!:Alerta;
 
 
   constructor(private publicoService: PublicoService, private negociosService: NegociosService, private mapaService: MapaService,private tokenService: TokenService) {
@@ -31,11 +34,12 @@ export class CrearNegocioComponent implements OnInit{
     this.crearNegocio();
   }
 
+  
   public crearNegocio() {
     const codigoCliente = this.tokenService.getCodigo();
     if (!codigoCliente) {
       console.error('No se ha iniciado sesión');
-      return; 
+      return;
     }
 
     this.registroNegocioDTO.codigoCliente = codigoCliente;
@@ -43,16 +47,23 @@ export class CrearNegocioComponent implements OnInit{
     this.negociosService.crear(this.registroNegocioDTO).subscribe({
       next: (data) => {
         console.log('Negocio creado correctamente', data);
+        this.alerta = { mensaje: 'Error al crear el negocio', tipo: 'success' }; 
       },
       error: (error) => {
         console.error('Error al crear el negocio', error);
+        this.alerta = { mensaje: 'Error al crear el negocio', tipo: 'danger' }; 
       }
     });
   }
 
   public agregarHorario() {
-  this.horarios.push(new Horario());
+    this.registroNegocioDTO.horarios.push(new Horario());
+ }   
+
+  public eliminarHorario(index: number) {
+    this.registroNegocioDTO.horarios.splice(index, 1);
   }
+
   public onFileChange(event: any) {
     if (event.target.files.length > 0) {
    

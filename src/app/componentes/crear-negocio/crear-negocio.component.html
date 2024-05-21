@@ -51,27 +51,27 @@
             </div>
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Horarios: </label>
-                <div class="col-sm-8">
-                    @for (item of horarios; track $index) {
-                    <div class="row mb-2 ">
+                <div class="col-sm-8" *ngFor="let item of registroNegocioDTO.horarios; let i = index">
+                    <div class="row mb-2">
                         <div class="col">
-                            <input class="form-control" placeholder="Día" type="text" name="dia-{{$index}}" [(ngModel)]="item.dia" required />
+                            <input class="form-control" placeholder="Día" type="text" name="dia-{{i}}" [(ngModel)]="item.dia" required />
                         </div>
                         <div class="col">
-                            <input class="form-control" placeholder="Hora Inicio" type="time" name="horaInicio-{{$index}}" [(ngModel)]="item.horaInicio" required />
+                            <input class="form-control" placeholder="Hora Inicio" type="text" name="horaInicio-{{i}}" [(ngModel)]="item.horaInicio" required />
                         </div>
                         <div class="col">
-                            <input class="form-control" placeholder="Hora Fin" type="time" name="horaFin-{{$index}}" [(ngModel)]="item.horaFin" required />
+                            <input class="form-control" placeholder="Hora Fin" type="text" name="horaFin-{{i}}" [(ngModel)]="item.horaFin" required />
                         </div>
                     </div>
-                    }
                 </div>
+                
                 <div class="col-sm-2 text-end">
                     <button class="btn btn-primary" (click)="agregarHorario()">
                         <i class="fa-solid fa-circle-plus me-1"></i>Agregar horario
                     </button>
                 </div>
             </div>
+            
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Teléfonos: </label>
                 <div class="col-sm-10">
@@ -95,6 +95,9 @@
             <button class="btn btn-primary" (click)="crearNegocio()">
                 <i class="fa-solid fa-circle-plus me-1"></i>Crear negocio
             </button>
+            <app-alerta [alerta]="alerta"></app-alerta>
+            
         </form>
+        
     </div>
 </div>
