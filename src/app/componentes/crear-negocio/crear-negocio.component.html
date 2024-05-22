@@ -8,24 +8,28 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Codigo del negocio: </label>
                 <div class="col-sm-10">
-                    <input #nombre="ngModel" class="form-control" [ngClass]="nombre.invalid && nombre.dirty ? 'is-invalid' : ''"
-                        type="text" name="nombre" [(ngModel)]="registroNegocioDTO.codigo" required />
+                    <input #nombre="ngModel" class="form-control"
+                        [ngClass]="nombre.invalid && nombre.dirty ? 'is-invalid' : ''" type="text" name="nombre"
+                        [(ngModel)]="registroNegocioDTO.codigo" required />
                 </div>
             </div>
 
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre: </label>
                 <div class="col-sm-10">
-                    <input #nombre="ngModel" class="form-control" [ngClass]="nombre.invalid && nombre.dirty ? 'is-invalid' : ''"
-                        type="text" name="nombre" [(ngModel)]="registroNegocioDTO.nombre" required />
+                    <input #nombre="ngModel" class="form-control"
+                        [ngClass]="nombre.invalid && nombre.dirty ? 'is-invalid' : ''" type="text" name="nombre"
+                        [(ngModel)]="registroNegocioDTO.nombre" required />
                 </div>
             </div>
 
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Descripción: </label>
                 <div class="col-sm-10">
-                    <textarea #descripcion="ngModel" [ngClass]="descripcion.invalid && descripcion.dirty ? 'is-invalid' : ''"
-                        type="text" [(ngModel)]="registroNegocioDTO.descripcion" name="descripcion" required class="form-control"></textarea>
+                    <textarea #descripcion="ngModel"
+                        [ngClass]="descripcion.invalid && descripcion.dirty ? 'is-invalid' : ''" type="text"
+                        [(ngModel)]="registroNegocioDTO.descripcion" name="descripcion" required
+                        class="form-control"></textarea>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -37,7 +41,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Imágenes: </label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="file" name="imagenes" (change)="onFileChange($event)" multiple required />
+                    <input class="form-control" type="file" name="imagenes" (change)="onFileChange($event)" multiple />
                 </div>
             </div>
             <div class="mb-3 row">
@@ -54,31 +58,34 @@
                 <div class="col-sm-8" *ngFor="let item of registroNegocioDTO.horarios; let i = index">
                     <div class="row mb-2">
                         <div class="col">
-                            <input class="form-control" placeholder="Día" type="text" name="dia-{{i}}" [(ngModel)]="item.dia" required />
+                            <input class="form-control" placeholder="Día" type="text" name="dia-{{i}}"
+                                [(ngModel)]="item.dia" required />
                         </div>
                         <div class="col">
-                            <input class="form-control" placeholder="Hora Inicio" type="text" name="horaInicio-{{i}}" [(ngModel)]="item.horaInicio" required />
+                            <input class="form-control" placeholder="Hora Inicio" type="text" name="horaInicio-{{i}}"
+                                [(ngModel)]="item.horaInicio" required />
                         </div>
                         <div class="col">
-                            <input class="form-control" placeholder="Hora Fin" type="text" name="horaFin-{{i}}" [(ngModel)]="item.horaFin" required />
+                            <input class="form-control" placeholder="Hora Fin" type="text" name="horaFin-{{i}}"
+                                [(ngModel)]="item.horaFin" required />
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-2 text-end">
                     <button class="btn btn-primary" (click)="agregarHorario()">
                         <i class="fa-solid fa-circle-plus me-1"></i>Agregar horario
                     </button>
                 </div>
             </div>
-            
+
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Teléfonos: </label>
                 <div class="col-sm-10">
                     <div *ngFor="let telefono of registroNegocioDTO.telefonos; let i = index" class="row mb-2">
                         <div class="col">
                             <input class="form-control" placeholder="Teléfono" type="text" name="telefono-{{i}}"
-                                   [(ngModel)]="registroNegocioDTO.telefonos[i]" />
+                                [(ngModel)]="registroNegocioDTO.telefonos[i]" />
                         </div>
                         <div class="col-sm-2">
                             <button class="btn btn-danger" (click)="eliminarTelefono(i)">
@@ -91,13 +98,13 @@
                     </button>
                 </div>
             </div>
-            
+
             <button class="btn btn-primary" (click)="crearNegocio()">
                 <i class="fa-solid fa-circle-plus me-1"></i>Crear negocio
             </button>
             <app-alerta [alerta]="alerta"></app-alerta>
-            
+
         </form>
-        
+
     </div>
 </div>
