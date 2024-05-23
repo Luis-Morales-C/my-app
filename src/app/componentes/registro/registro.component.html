@@ -1,81 +1,92 @@
-<div class="card">
-    <div class="card-header ps-5 pt-4 pb-4">
-        <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Registro de un nuevo cliente</h5>
-    </div>
-    <div class="card-body py-5">
+<div class="body1">
+    <div class="container">
+        <div class="row px-3">
+            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0 mt-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
 
-        <form #f="ngForm" (click)="registrar()">
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Cedula: </label>
-                <div class="col-sm-10">
-                    <input #cedula="ngModel" class="form-control" [ngClass]="cedula.invalid && cedula.dirty
-                    ? 'is-invalid' : ''" type="text" name="cedula" [(ngModel)]="registroClienteDTO.codigo" required />
+                <div class="card-body">
+                    <h4 class="title text-center mt-4">Formulario de registro</h4>
+                    <form #f="ngForm" (ngSubmit)="registrar()">
+                        <div class="form-input">
+                            <label class="col-sm-2 col-form-label">Cedula: </label>
+                            <div class="col-sm-10">
+                                <input #cedula="ngModel" class="form-control" [ngClass]="cedula.invalid && cedula.dirty
+                                ? 'is-invalid' : ''" type="text" name="cedula" [(ngModel)]="registroClienteDTO.codigo"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-input">
+                            <label class="col-sm-2 col-form-label">Nombre: </label>
+                            <div class="col-sm-10">
+                                <input #nombre="ngModel" class="form-control" [ngClass]="nombre.invalid && nombre.dirty
+                                    ? 'is-invalid' : ''" type="text" name="nombre"
+                                    [(ngModel)]="registroClienteDTO.nombre" required />
+                            </div>
+                        </div>
+
+                        <div class="form-input">
+                            <label class="col-sm-2 col-form-label">Foto: </label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="foto" (change)="onFileChange($event)" />
+                            </div>
+                        </div>
+
+                        <div class="form-input">
+                            <label class="col-sm-2 col-form-label">CiudadResidencia: </label>
+                            <div class="col-sm-10">
+                                <select class="form-select" name="ciudadResidencia" required
+                                    [(ngModel)]="registroClienteDTO.ciudadResidencia">
+                                    <option value="" selected>Seleccione una ciudad</option>
+                                    <option *ngFor="let item of ciudades; let i = index" [value]="item">{{ item }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-input">
+                            <label class="col-sm-2 col-form-label">Username: </label>
+                            <div class="col-sm-10">
+                                <input #nickname="ngModel" class="form-control" [ngClass]="nickname.invalid &&
+                                    nickname.dirty ? 'is-invalid' : ''" type="text" name="nickname"
+                                    [(ngModel)]="registroClienteDTO.nickname" required />
+                            </div>
+                        </div>
+
+                        <div class="form-input">
+                            <label class="col-sm-2 col-form-label">Email: </label>
+                            <div class="col-sm-10">
+                                <input #email="ngModel" class="form-control" type="email" name="email" [ngClass]="password.invalid &&
+                                    password.dirty ? 'is-invalid' : ''" [(ngModel)]="registroClienteDTO.email"
+                                    required />
+                            </div>
+                        </div>
+
+                        <div class="form-input">
+                            <label class="col-sm-2 col-form-label">Contraseña: </label>
+                            <div class="col-sm-10 ">
+                                <input #password="ngModel" class="form-control" type="password" [ngClass]="password.invalid &&
+                                    password.dirty ? 'is-invalid' : ''" name="password"
+                                    [(ngModel)]="registroClienteDTO.password" required minlength="5" maxlength="12" />
+                            </div>
+                        </div>
+
+                        <div class="form-input">
+                            <label class="col-sm-2 col-form-label">Repetir contraseña: </label>
+                            <div class="col-sm-10">
+                                <input #confirmaPassword="ngModel" class="form-control" type="password"
+                                    name="confirmaPassword" [(ngModel)]="registroClienteDTO.confirmarPassword"
+                                    required />
+                                <p *ngIf="!sonIguales()" class="alert alert-danger">Las contraseñas no coinciden</p>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary" (click)="subirImagen()"
+                            [disabled]="f.invalid || !sonIguales()">Registrarse</button>
+                        <app-alerta [alerta]="alerta"></app-alerta>
+
+                    </form>
                 </div>
-
-                <label class="col-sm-2 col-form-label">Nombre: </label>
-                <div class="col-sm-10">
-                    <input #nombre="ngModel" class="form-control" [ngClass]="nombre.invalid && nombre.dirty
-                    ? 'is-invalid' : ''" type="text" name="nombre" [(ngModel)]="registroClienteDTO.nombre" required />
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Foto: </label>
-                    <div class="col-sm-8">
-                        <input type="file" class="form-control" name="foto" (change)="onFileChange($event)" />
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="submit" [disabled]="archivos == null" class="btn btn-primary"
-                            (click)="subirImagen()">
-                            <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir Foto
-                        </button>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">CiudadResidencia: </label>
-                    <div class="col-sm-10">
-                        <select class="form-select" name="ciudadResidencia" required
-                            [(ngModel)]="registroClienteDTO.ciudadResidencia">
-                            <option value="" selected>Seleccione una ciudad</option>
-                            <option *ngFor="let item of ciudades; let i = index" [value]="item">{{ item }}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">Username: </label>
-                    <div class="col-sm-10">
-                        <input #nickname="ngModel" class="form-control" [ngClass]="nickname.invalid &&
-                        nickname.dirty ? 'is-invalid' : ''" type="text" name="nickname"
-                            [(ngModel)]="registroClienteDTO.nickname" required />
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label>Correo electrónico: </label>
-                    <input #email="ngModel" class="form-control" type="email" name="email" [ngClass]="password.invalid &&
-                    password.dirty ? 'is-invalid' : ''" [(ngModel)]="registroClienteDTO.email" required />
-                </div>
-
-                <div class="mb-3">
-                    <label>Contraseña: </label>
-                    <input #password="ngModel" class="form-control" type="password" [ngClass]="password.invalid &&
-                    password.dirty ? 'is-invalid' : ''" name="password" [(ngModel)]="registroClienteDTO.password"
-                        required minlength="5" maxlength="12" />
-                </div>
-
-                <div class="mb-3">
-                    <label>Repetir contraseña: </label>
-                    <input #confirmaPassword="ngModel" class="form-control" type="password" name="confirmaPassword"
-                        [(ngModel)]="registroClienteDTO.confirmarPassword" required />
-                    <p *ngIf="!sonIguales()" class="alert alert-danger">Las contraseñas no coinciden</p>
-                </div>
-
-
-                <button type="submit" class="btn btn-primary"
-                    [disabled]="f.invalid || !sonIguales()">Registrarse</button>
-                <app-alerta [alerta]="alerta"></app-alerta>
             </div>
-        </form>
+        </div>
     </div>
 </div>

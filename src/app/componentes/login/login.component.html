@@ -1,27 +1,40 @@
-<div class="card">
-    <div class="card-header ps-5 pt-4 pb-4">
-        <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Login</h5>
-    </div>
-    <div class="card-body p-5">
-        <form #f="ngForm" (ngSubmit)="login()">
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Email: </label>
-                <div class="col-sm-10">
-                    <input #email="ngModel" class="form-control" [ngClass]="email.invalid && email.dirty ? 'is-invalid' : ''" type="text" name="email" [(ngModel)]="loginDTO.email" required />
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Contraseña: </label>
-                <div class="col-sm-10">
-                    <input #password="ngModel" class="form-control" [ngClass]="password.invalid && password.dirty ? 'is-invalid' : ''" type="password" name="password" [(ngModel)]="loginDTO.password" required />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <button class="btn btn-primary me-2" type="submit" [disabled]="f.invalid">Login</button>
-                </div>
-            </div>
-        </form>
+<div class="body1">
+    <div class="container">
+        <div class="row px-3">
+            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+                <div class="img-left d-none d-md-flex"></div>
+                <div class="card-body">
+                    <h4 class="title text-center mt-4">Iniciar Sesión</h4>
+                    <form class="form-box px-3" #f="ngForm" (ngSubmit)="login()">
+                        <div class="form-input">
+                            <span><i class="fa fa-envelope"></i></span>
+                            <input placeholder="Email" #email="ngModel" class="form-control"
+                                [ngClass]="email.invalid && email.dirty ? 'is-invalid' : ''" type="text" name="email"
+                                [(ngModel)]="loginDTO.email" required />
 
+                        </div>
+
+                        <div class="form-input">
+                            <span><i class="fa fa-key"></i></span>
+                            <input placeholder="Contraseña" #password="ngModel" class="form-control"
+                                [ngClass]="password.invalid && password.dirty ? 'is-invalid' : ''" type="password"
+                                name="password" [(ngModel)]="loginDTO.password" required />
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-block text-uppercase" type="submit">Iniciar Sesion</button>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="text-center mb-2">
+                            No tienes una cuenta?
+                            <a href="/registro" class="register-link">
+                                Registrate aquí
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

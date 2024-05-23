@@ -32,6 +32,14 @@ export class TokenService {
     }
     return "";
   }
+  public getNombre(): string {
+    const token = this.getToken();
+    if (token) {
+      const values = this.decodePayload(token);
+      return values.nombre;
+    }
+    return "";
+  }
 
   public setToken(token: string) {
     if (this.isBrowser) {
@@ -73,11 +81,11 @@ export class TokenService {
   public getRole(): string {
     const token = this.getToken();
     if (token) {
-    const values = this.decodePayload(token);
-    return values.rol;
+      const values = this.decodePayload(token);
+      return values.rol;
     }
     return "";
-    }
+  }
 
   private decodePayload(token: string): any {
     const payload = token.split(".")[1];

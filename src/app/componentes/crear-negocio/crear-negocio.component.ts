@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { crearNegocioDTO } from '../../dto/crear-negocio-dto';
 import { NegociosService } from '../../servicios/negocios.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Horario } from '../../dto/horario';
 import { MapaService } from '../../servicios/mapa.service';
@@ -14,12 +14,13 @@ import { ImagenService } from '../../servicios/imagen.service';
 @Component({
   selector: 'app-crear-negocio',
   standalone: true,
-  imports: [FormsModule, CommonModule, AlertaComponent],
+  imports: [FormsModule, CommonModule, AlertaComponent, ReactiveFormsModule],
   templateUrl: './crear-negocio.component.html',
   styleUrl: './crear-negocio.component.css'
 })
 export class CrearNegocioComponent implements OnInit {
-  archivos!: FileList;
+  archivos: File[] = [];
+  urls: string[] = [];
   registroNegocioDTO: crearNegocioDTO;
   horarios: Horario[];
   numero: string = ''
@@ -33,7 +34,6 @@ export class CrearNegocioComponent implements OnInit {
     this.horarios = [new Horario()];
     this.tipoNegocio = [];
     this.cargarTipoNegocio();
-    this.crearNegocio();
   }
 
 
@@ -69,18 +69,24 @@ export class CrearNegocioComponent implements OnInit {
 
   public subirImagen() {
     if (this.archivos != null && this.archivos.length > 0) {
-      console.log('Subiendo imagenes');
-      const formData = new FormData();
-      formData.append('files', this.archivos[0]);
-      this.imagenService.subir(formData).subscribe({
-        next: (data) => {
-          this.registroNegocioDTO.imagenes.push(data.respuesta.url);
-          this.alerta = { mensaje: 'Imagenes subidas correctamente', tipo: 'success' };
-        },
-        error: (error) => {
-          console.error('Error al subir las imagenes', error);
-          this.alerta = { mensaje: 'Error al subir las imagenes', tipo: 'danger' };
-        }
+      this.archivos.forEach((archivo) => {
+        const formData = new FormData();
+        formData.append('file', archivo);
+        this.imagenService.subir(formData).subscribe(
+          (data) => {
+            console.log('Imagen subida correctamente', data);
+            this.alerta = { mensaje: 'Imagen subida correctamente', tipo: 'success' };
+            this.urls.push(data.respuesta.url);
+            this.urls.forEach(e => {
+              this.registroNegocioDTO.imagenes.push(e);
+            });
+
+          },
+          (error) => {
+            console.error('Error al subir la imagen', error);
+            this.alerta = { mensaje: 'Error al subir la imagen', tipo: 'danger' };
+          }
+        )
       });
     } else {
       this.alerta = { mensaje: 'Debe subir una imagen', tipo: 'danger' };
@@ -92,15 +98,8 @@ export class CrearNegocioComponent implements OnInit {
     console.log("Evento de archivo cambiado", event);
 
     if (event.target.files.length > 0) {
-      console.log("Imagen capturada");
 
-      this.registroNegocioDTO.imagenes = [];
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.archivos = event.target.files;
-        console.log("Archivo seleccionado:", this.archivos[0].name);
-        this.registroNegocioDTO.imagenes.push(this.archivos[0].name);
-      }
+      this.archivos = Array.from(event.target.files);
       this.subirImagen();
     } else {
       console.log("No se ha seleccionado ninguna imagen");

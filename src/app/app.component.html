@@ -1,26 +1,25 @@
 <div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <header class="d-flex flex-wrap justify-content-center header">
         <a href="/"
-            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <svg class="bi me-2" width="40" height="32">
-                <use xlink:href="#bootstrap" />
-            </svg>
-            <span class="fs-4">UniLocal</span>
+            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none Logo">
+            UniLocal
         </a>
 
-        <div class="col-md-3 text-end">
-            @if (!isLogged) {
-                <button type="button" routerLink="/login" class="btn btn-outline-primary mb-2">Login</button>
-                <button type="button" routerLink="/registro" class="btn btn-primary mb-2">Registro</button>
-            } @else {
-                <label class="me-3 mb-2">Hola  {{ email }}</label>
-                <button type="button" (click)="logout()" class="btn btn-primary mb-2">Salir</button>
-                <button type="button" routerLink="/gestion-negocios" class="btn btn-primary mb-2">Gestion negocio</button>
-            }
+        <div class="col-auto text-end">
+            <nav class="navbar">
+                @if (!isLogged) {
+                <a routerLink="/login">Login</a>
+                <a routerLink="/registro">Registro</a>
+                } @else {
+                <label class="me-3 mb-2">Hola {{ nombre }}</label>
+                <a routerLink="/" (click)="logout()">Salir</a>
+                <a routerLink="/gestion-negocios">Gestion negocio</a>
+                }
+            </nav>
         </div>
     </header>
 </div>
 <router-outlet></router-outlet>
-<footer>
+<footer class="mt-5">
     <p>{{ footer }}</p>
 </footer>

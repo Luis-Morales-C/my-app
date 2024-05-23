@@ -18,4 +18,7 @@ export class ImagenService {
             body: imagenDTO
         });
     }
+    public subirImagenes(imagenes: FormData[]): Observable<MensajeDTO> {
+        return this.http.post<MensajeDTO>(`${this.imgURL}/subir-imagenes`, imagenes);
+    }
 }
