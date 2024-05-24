@@ -37,5 +37,8 @@ export class NegociosService {
   public listarNegociosPropietario(codigoCliente: string): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.negociosURL}/listar-negocios-propietario/${codigoCliente}`);
   }
+  public buscar(cadenaBusqueda: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.negociosURL}/filtrar-por-nombre/${cadenaBusqueda}`);
+  }
 
 }

@@ -6,28 +6,37 @@ import { ItemNegocioDTO } from '../../dto/item-negocio-dto';
 
 
 @Component({
-selector: 'app-busqueda',
-standalone: true,
-imports: [],
-templateUrl: './busqueda.component.html',
-styleUrl: './busqueda.component.css'
+    selector: 'app-busqueda',
+    standalone: true,
+    imports: [],
+    templateUrl: './busqueda.component.html',
+    styleUrl: './busqueda.component.css'
 })
 export class BusquedaComponent implements OnInit {
-  
-textoBusqueda: string;
-resultados: ItemNegocioDTO[] ;
-constructor(private route: ActivatedRoute, private negociosService: NegociosService, private mapaService: MapaService) {
-this.resultados = [];
-this.textoBusqueda = '';
-this.route.params.subscribe(params => {
-this.textoBusqueda = params['texto'];
-this.ngOnInit;
 
-});
-}
+    textoBusqueda: string;
+    resultados: ItemNegocioDTO[];
 
-ngOnInit(): void {
-this.mapaService.crearMapa();
-this.mapaService.pintarMarcadores(this.resultados);
-}
+    constructor(private route: ActivatedRoute, private negociosService: NegociosService, private mapaService: MapaService) {
+        this.resultados = [];
+        this.textoBusqueda = '';
+
+        this.route.params.subscribe(params => {
+            this.textoBusqueda = params['texto'];
+            this.negociosService.buscar(this.textoBusqueda).subscribe({
+                next: (data) => {
+                    this.resultados = data.respuesta;
+                    this.mapaService.pintarMarcadores(this.resultados);
+                },
+                error: (error) => {
+                    console.error(error);
+                }
+            });
+        });
+    }
+
+    ngOnInit(): void {
+        this.mapaService.crearMapa();
+        this.mapaService.pintarMarcadores(this.resultados);
+    }
 }

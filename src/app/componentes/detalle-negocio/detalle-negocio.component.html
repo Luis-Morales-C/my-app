@@ -1,1 +1,46 @@
-<p>{{negocio | json}}</p>
+<div class="d-flex justify-content-center align-content-center vh-100 card">
+
+
+    <div id="carouselExampleIndicators" class="carousel slide w-100" style="max-width: 80%;">
+
+        <span class="text-center ">
+            <h5>{{negocio.nombre}}</h5>
+        </span>
+        <div class="carousel-indicators">
+            <button *ngFor="let image of negocio?.imagenes; let i = index" type="button"
+                data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i" [ngClass]="{'active': i === 0}"
+                [attr.aria-current]="i === 0 ? 'true' : null" [attr.aria-label]="'Slide ' + (i + 1)"></button>
+        </div>
+        <div class="carousel-inner">
+            <div *ngFor="let image of negocio?.imagenes; let i = index" class="carousel-item"
+                [ngClass]="{'active': i === 0}">
+                <img [src]="image" class="d-block w-100" [alt]="'Slide ' + (i + 1)">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div>
+        <span *ngFor="let star of stars; let i = index" style="z-index: 1;">
+            <i class="fa" [class.fa-star]="star" [class.fa-star-o]="!star"></i>
+
+        </span>
+        <span>
+            <p>Calificacion promedio: {{negocio.calificacionPromedio}}</p>
+        </span>
+    </div>
+    <span class="mt-5 text-center justify-content-center align-content-center d-flex ">
+        <p>{{negocio.descripcion}}</p>
+    </span>
+    <span class="mt-5 text-center justify-content-center align-content-center d-flex ">
+        <p>{{negocio.telefonos}}</p>
+    </span>
+</div>

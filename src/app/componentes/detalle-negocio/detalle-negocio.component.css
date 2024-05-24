@@ -1,0 +1,86 @@
+.d-flex.justify-content-center.align-items-center.vh-100 {
+    height: 100vh;
+    /* Asegura que el contenedor ocupe la altura completa de la ventana */
+}
+
+.carousel {
+    max-width: 80%;
+    margin: 80px;
+    z-index: 1;
+    /* Ajusta el ancho máximo del carrusel según tus necesidades */
+}
+
+.carousel-image {
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    /* Mantener la proporción original de la imagen */
+}
+
+.card {
+    position: relative;
+    width: 590px;
+    height: 154px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 20px;
+    margin: auto;
+    /* Centrar horizontalmente la tarjeta */
+}
+
+.card h5 {
+    font-size: 24px;
+    font-weight: 700;
+    color: black;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    /* Ajustar el tamaño de la fuente y el peso de la fuente según tus necesidades */
+}
+
+.card span {
+    font-size: 24px;
+    font-weight: 50;
+    color: black;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    /* Ajustar el tamaño de la fuente y el peso de la fuente según tus necesidades */
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 130%;
+    background-image: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
+    animation: rotBGimg 3s linear infinite;
+    transition: all 0.2s linear;
+}
+
+@keyframes rotBGimg {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    background: white;
+    inset: 5px;
+    border-radius: 15px;
+}
+
+.fa-star,
+.fa-star-o {
+    color: gold;
+    font-size: 24px;
+}

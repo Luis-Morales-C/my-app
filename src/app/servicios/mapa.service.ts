@@ -15,7 +15,7 @@ export class MapaService {
   }
 
   public crearMapa() {
-    if (typeof document !== 'undefined') { // Verificación de 'document'
+    if (typeof document !== 'undefined') {
       this.mapa = new mapboxgl.Map({
         accessToken: 'pk.eyJ1IjoibHVpc2Nhcmxvc20iLCJhIjoiY2x3MTFtZDU5MDE0dDJpbzBudzhnaWxzdiJ9.fo06tifPleDYyw-fDhxdSw',
         container: 'mapa',
@@ -37,7 +37,7 @@ export class MapaService {
   }
 
   public agregarMarcador(): Observable<any> {
-    if (typeof document !== 'undefined') { // Verificación de 'document'
+    if (typeof document !== 'undefined') {
       const mapaGlobal = this.mapa;
       const marcadores = this.marcadores;
 
@@ -58,12 +58,16 @@ export class MapaService {
   }
 
   public pintarMarcadores(negocios: ItemNegocioDTO[]) {
-    if (typeof document !== 'undefined') { // Verificación de 'document'
+    if (typeof document !== 'undefined') {
       negocios.forEach(negocio => {
-        new mapboxgl.Marker()
-          .setLngLat([negocio.ubicacion.longitud, negocio.ubicacion.latitud])
-          .setPopup(new mapboxgl.Popup().setHTML(negocio.nombre))
-          .addTo(this.mapa);
+        if (negocio && negocio.ubicacion && negocio.ubicacion.longitud !== undefined && negocio.ubicacion.latitud !== undefined) {
+          new mapboxgl.Marker()
+            .setLngLat([negocio.ubicacion.longitud, negocio.ubicacion.latitud])
+            .setPopup(new mapboxgl.Popup().setHTML(negocio.nombre))
+            .addTo(this.mapa);
+        } else {
+          console.error('negocio o su ubicación no está definida correctamente', negocio);
+        }
       });
     } else {
       console.warn('document is not available, cannot paint markers');

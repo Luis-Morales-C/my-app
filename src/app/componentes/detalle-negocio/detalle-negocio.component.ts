@@ -10,21 +10,33 @@ import { CommonModule } from '@angular/common';
     imports: [CommonModule],
     templateUrl: './detalle-negocio.component.html',
     styleUrl: './detalle-negocio.component.css'
+
 })
 export class DetalleNegocioComponent {
     codigoNegocio: string = '';
-    negocio: ItemNegocioDTO | undefined;
+    stars: boolean[] = [];
+    negocio: ItemNegocioDTO;
+
     constructor(private route: ActivatedRoute, private negociosService: NegociosService) {
+        this.negocio = new ItemNegocioDTO();
+    }
+    ngOnInit(): void {
         this.route.params.subscribe((params) => {
             this.codigoNegocio = params['codigo'];
             this.obtenerNegocio();
         });
     }
     public obtenerNegocio() {
-       this.negociosService.obtener(this.codigoNegocio).subscribe({
-        next: data => {
-            this.negocio = data.respuesta;
-        }
-       })
+        this.negociosService.obtener(this.codigoNegocio).subscribe({
+            next: data => {
+                this.negocio = data.respuesta;
+                this.actualizarEstrellas();
+            }
+        })
+    }
+
+
+    actualizarEstrellas(): void {
+        this.stars = Array(5).fill(true).map((_, i) => i < this.negocio.calificacionPromedio);
     }
 }
