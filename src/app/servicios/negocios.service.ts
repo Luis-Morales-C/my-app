@@ -44,4 +44,8 @@ export class NegociosService {
     return this.http.get<MensajeDTO>(`${this.negociosURL}/listar-mejores-negocios`);
   }
 
+  public buscarPorEstado(estado: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.negociosURL}/filtrar-por-estado/${estado}`);
+  }
+
 }
