@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { crearNegocioDTO } from '../../dto/crear-negocio-dto';
 import { NegociosService } from '../../servicios/negocios.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,7 +29,7 @@ export class CrearNegocioComponent implements OnInit {
   alerta!: Alerta;
 
 
-  constructor(private publicoService: PublicoService, private negociosService: NegociosService, private mapaService: MapaService, private tokenService: TokenService
+  constructor(private router: Router, private publicoService: PublicoService, private negociosService: NegociosService, private mapaService: MapaService, private tokenService: TokenService
     , private imagenService: ImagenService) {
     this.registroNegocioDTO = new crearNegocioDTO;
     this.horarios = [new Horario()];
@@ -50,6 +51,7 @@ export class CrearNegocioComponent implements OnInit {
       next: (data) => {
         console.log('Negocio creado correctamente', data);
         this.alerta = { mensaje: 'Negocio Creado Correctamente', tipo: 'success' };
+        this.router.navigate(['/']);
       },
       error: (error) => {
         console.error('Error al crear el negocio', error);

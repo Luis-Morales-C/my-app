@@ -40,5 +40,8 @@ export class NegociosService {
   public buscar(cadenaBusqueda: string): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.negociosURL}/filtrar-por-nombre/${cadenaBusqueda}`);
   }
+  public buscarMejoresNegocios(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.negociosURL}/listar-mejores-negocios`);
+  }
 
 }

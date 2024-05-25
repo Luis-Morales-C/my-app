@@ -3,7 +3,7 @@
         <h5 class="mb-0"><i class="fa-solid fa-location-dot me-2"></i>Crear un nuevo negocio</h5>
     </div>
     <div class="card-body p-5">
-        <form #f="ngForm" (ngSubmit)="crearNegocio()">
+        <form #f="ngForm" (ngSubmit)="crearNegocio()" href="/">
 
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Codigo del negocio: </label>
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="col-sm-2 text-end">
-                    <button class="btn btn-primary" (click)="agregarHorario()">
+                    <button type="button" class="btn btn-primary" (click)="agregarHorario()">
                         <i class="fa-solid fa-circle-plus me-1"></i>Agregar horario
                     </button>
                 </div>
@@ -88,12 +88,12 @@
                                 [(ngModel)]="registroNegocioDTO.telefonos[i]" />
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn btn-danger" (click)="eliminarTelefono(i)">
+                            <button type="button" class="btn btn-danger" (click)="eliminarTelefono(i)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary" (click)="agregarTelefono()">
+                    <button type="button" class="btn btn-primary" (click)="agregarTelefono()">
                         <i class="fa-solid fa-circle-plus me-1"></i>Agregar Teléfono
                     </button>
                 </div>
